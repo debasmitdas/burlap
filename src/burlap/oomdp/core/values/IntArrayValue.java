@@ -1,5 +1,6 @@
 package burlap.oomdp.core.values;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class IntArrayValue extends OOMDPValue implements Value {
 	
 	public IntArrayValue(IntArrayValue v){
 		super(v);
-		IntArrayValue iaValue  = (IntArrayValue)v;
+		IntArrayValue iaValue  = v;
 		if(iaValue.intArray != null){
 			this.intArray = iaValue.intArray.clone();
 		} else {
@@ -106,33 +107,42 @@ public class IntArrayValue extends OOMDPValue implements Value {
 		return doubleArray;
 	}
 	
+	
 	@Override
-	public boolean equals(Object obj){
-		if (this == obj) {
-			return true;
-		}
-		if(!(obj instanceof IntArrayValue)){
-			return false;
-		}
-		
-		IntArrayValue o = (IntArrayValue)obj;
-		
-		if(!o.attribute.equals(attribute)){
-			return false;
-		}
-		
-		if(this.intArray.length != o.intArray.length){
-			return false;
-		}
-		
-		for(int i = 0; i < this.intArray.length; i++){
-			if(this.intArray[i] != o.intArray[i]){
-				return false;
-			}
-		}
-		
-		return true;
-		
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(intArray);
+        return result;
+    }
+
+	@Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+        if(!(obj instanceof IntArrayValue)){
+            return false;
+        }
+        
+        IntArrayValue o = (IntArrayValue)obj;
+        
+        if(!o.attribute.equals(attribute)){
+            return false;
+        }
+        
+        if(this.intArray.length != o.intArray.length){
+            return false;
+        }
+        
+        for(int i = 0; i < this.intArray.length; i++){
+            if(this.intArray[i] != o.intArray[i]){
+                return false;
+            }
+        }
+        
+        return true;
+        
+    }
 
 }

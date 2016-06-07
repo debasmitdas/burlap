@@ -17,7 +17,7 @@ import java.util.List;
  * that have non-zero probability of occurring. These transitions are specified with a {@link burlap.oomdp.core.TransitionProbability}
  * object that is a pair consisting of the next {@link burlap.oomdp.core.states.State} and a double specifying the probability
  * of transitioning to that state.
- * <br/><br/>
+ * <p>
  * Also defined is a an inner static helper class called {@link burlap.oomdp.singleagent.FullActionModel.FullActionModelHelper}
  * that has static helper methods that may be useful for working with an {@link burlap.oomdp.singleagent.Action} that implements
  * {@link burlap.oomdp.singleagent.FullActionModel}. Specifically, it includes a method for sampling a state
@@ -43,6 +43,10 @@ public interface FullActionModel {
 	 * A class with helper methods for working with actions that implement {@link burlap.oomdp.singleagent.FullActionModel}.
 	 */
 	public static class FullActionModelHelper{
+	    
+	    private FullActionModelHelper() {
+	        // do nothing
+	    }
 
 
 		/**
@@ -65,7 +69,7 @@ public interface FullActionModel {
 			double sum = 0.;
 			for(TransitionProbability tp : tps){
 				sum += tp.p;
-				if(roll < tp.p){
+				if(roll < sum){
 					return tp.s;
 				}
 			}

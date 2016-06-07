@@ -1,14 +1,11 @@
 package burlap.oomdp.core.values;
 
-import java.util.Collection;
-import java.util.Set;
-
 import burlap.oomdp.core.Attribute;
 
 
 /**
  * A discrete value subclass in which discrete values are stored as int values. The int values correspond to the attributes
- * categorical list of discrete values, so the int values should always be >= 0 unless it is unset, which is specified by a value of -1.
+ * categorical list of discrete values, so the int values should always be &gt;= 0 unless it is unset, which is specified by a value of -1.
  * @author James MacGlashan
  *
  */
@@ -38,7 +35,7 @@ public class DiscreteValue extends OOMDPValue implements Value{
 	 */
 	public DiscreteValue(DiscreteValue v){
 		super(v);
-		DiscreteValue dv = (DiscreteValue)v;
+		DiscreteValue dv = v;
 		this.discVal = dv.discVal;
 	}
 	
@@ -69,7 +66,7 @@ public class DiscreteValue extends OOMDPValue implements Value{
 	
 	@Override
 	public Value setValue(boolean v) {
-		int intV = (v) ? 1 : 0;
+		int intV = v ? 1 : 0;
 		return new DiscreteValue(this.attribute, intV);
 	}
 	
@@ -106,24 +103,33 @@ public class DiscreteValue extends OOMDPValue implements Value{
 		return (double)this.discVal;
 	}
 	
+	
 	@Override
-	public boolean equals(Object obj){
-		if (this == obj) {
-			return true;
-		}
-		
-		if(!(obj instanceof DiscreteValue)){
-			return false;
-		}
-		
-		DiscreteValue op = (DiscreteValue)obj;
-		if(!op.attribute.equals(attribute)){
-			return false;
-		}
-		
-		return discVal == op.discVal;
-		
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + discVal;
+        return result;
+    }
+
+	@Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+        
+        if(!(obj instanceof DiscreteValue)){
+            return false;
+        }
+        
+        DiscreteValue op = (DiscreteValue)obj;
+        if(!op.attribute.equals(attribute)){
+            return false;
+        }
+        
+        return discVal == op.discVal;
+        
+    }
 
 	@Override
 	public boolean getBooleanValue() {

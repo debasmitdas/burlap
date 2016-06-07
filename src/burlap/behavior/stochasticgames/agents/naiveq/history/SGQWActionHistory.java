@@ -28,8 +28,8 @@ import java.util.Map;
  * parameterized actions, this may be a problem and you should use the {@link #SGQWActionHistory(SGDomain, double, double, burlap.oomdp.statehashing.HashableStateFactory, int, int, ActionIdMap)}
  * constructor to resolve action parameterization instead.
  * 
- * <p/>
- * 1. Watkins, Christopher JCH, and Peter Dayan. "Q-learning." Machine learning 8.3-4 (1992): 279-292. <br/>
+ * <p>
+ * 1. Watkins, Christopher JCH, and Peter Dayan. "Q-learning." Machine learning 8.3-4 (1992): 279-292. <p>
  * @author James MacGlashan
  *
  */
@@ -81,7 +81,7 @@ public class SGQWActionHistory extends SGNaiveQLAgent {
 	/**
 	 * A constant for the name of the history object class. 
 	 */
-	public static String						CLASSHISTORY = "histAID";
+	public static final String						CLASSHISTORY = "histAID";
 	
 	
 	

@@ -216,7 +216,7 @@ public class PolicyIteration extends DynamicProgramming implements Planner {
 		
 		Set <HashableState> states = mapToStateIndex.keySet();
 		
-		int i = 0;
+		int i;
 		for(i = 0; i < this.maxIterations; i++){
 			
 			double delta = 0.;
@@ -273,7 +273,7 @@ public class PolicyIteration extends DynamicProgramming implements Planner {
 		openedSet.add(sih);
 		
 		
-		while(openList.size() > 0){
+		while(!openList.isEmpty()){
 			HashableState sh = openList.poll();
 			
 			//skip this if it's already been expanded

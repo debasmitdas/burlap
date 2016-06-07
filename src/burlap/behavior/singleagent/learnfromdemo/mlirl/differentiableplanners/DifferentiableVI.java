@@ -138,7 +138,7 @@ public class DifferentiableVI extends DifferentiableDP implements Planner {
 
 		Set<HashableState> states = mapToStateIndex.keySet();
 
-		int i = 0;
+		int i;
 		for(i = 0; i < this.maxIterations; i++){
 
 			double delta = 0.;
@@ -146,7 +146,7 @@ public class DifferentiableVI extends DifferentiableDP implements Planner {
 
 				double v = this.value(sh);
 				double newV = this.performBellmanUpdateOn(sh);
-				double [] ng = this.performDPValueGradientUpdateOn(sh);
+				this.performDPValueGradientUpdateOn(sh);
 				delta = Math.max(Math.abs(newV - v), delta);
 
 			}
@@ -206,7 +206,7 @@ public class DifferentiableVI extends DifferentiableDP implements Planner {
 		openedSet.add(sih);
 
 
-		while(openList.size() > 0){
+		while(!openList.isEmpty()){
 			HashableState sh = openList.poll();
 
 			//skip this if it's already been expanded

@@ -3,6 +3,8 @@ package burlap.oomdp.core;
 
 import burlap.oomdp.core.states.State;
 
+import java.util.Arrays;
+
 /**
  * Propositional functions are defined to be evaluated on object parameters and this class provides a
  * definition for a grounded propositional function; that is, it specifies specific object parameters
@@ -47,7 +49,7 @@ public class GroundedProp implements Cloneable{
 	 * then the returned format is: "PFName(ob1, ob2)"
 	 */
 	public String toString(){
-		StringBuffer buf = new StringBuffer();
+	    StringBuilder buf = new StringBuilder();
 		
 		buf.append(pf.name).append("(");
 		for(int i = 0; i < params.length; i++){
@@ -62,7 +64,19 @@ public class GroundedProp implements Cloneable{
 	}
 	
 	
+	
+	@Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(params);
+        result = prime * result + ((pf == null) ? 0 : pf.hashCode());
+        return result;
+    }
+
+
 	public boolean equals(Object obj){
+
 		if(this == obj){
 			return true;
 		}
@@ -90,11 +104,9 @@ public class GroundedProp implements Cloneable{
 					if(j == i){
 						continue; //already checked this
 					}
-					if(orderGroup.equals(that.pf.parameterOrderGroup[j])){
-						if(params[i].equals(that.params[j])){
-							foundMatch = true;
-							break;
-						}
+					if(orderGroup.equals(that.pf.parameterOrderGroup[j]) && params[i].equals(that.params[j])){
+					    foundMatch = true;
+                        break;
 					}
 					
 				}

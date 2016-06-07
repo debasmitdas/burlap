@@ -7,6 +7,7 @@ import burlap.oomdp.core.states.State;
 import burlap.oomdp.singleagent.common.SimpleGroundedAction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,14 +16,14 @@ import java.util.List;
  * instance associated with this action is {@link burlap.oomdp.singleagent.ObjectParameterizedAction.ObjectParameterizedGroundedAction},
  * which implements the {@link burlap.oomdp.core.AbstractObjectParameterizedGroundedAction}, since its parameters refer to
  * OO-MDP {@link burlap.oomdp.core.objects.ObjectInstance} references.
- * <br/><br/>
+ * <p>
  * The string array in the {@link #ObjectParameterizedAction(String, burlap.oomdp.core.Domain, String[])} constructor
  * specifies the valid type of {@link burlap.oomdp.core.ObjectClass}
  * to which the parameters must belong. For example, in {@link burlap.domain.singleagent.blocksworld.BlocksWorld},
  * we might define a "stack" {@link burlap.oomdp.singleagent.ObjectParameterizedAction} that takes two parameters
  * that each must be instances of the BLOCK class. In such a case, the String array passed to the constructor of the stack
  * {@link burlap.oomdp.singleagent.ObjectParameterizedAction} would be new String[]{"BLOCK", "BLOCK"}.
- * <br/><br/>
+ * <p>
  * It may also be the case that the order of parameters for an {@link burlap.oomdp.singleagent.ObjectParameterizedAction} is unimportant.
  * For example, a cooking domain might have a "combine"
  * action that combines two INGREDIENT objects. In such a case, the effect of combine(ing1, ing2) would be the same as combine(ing2, ing1).
@@ -200,41 +201,50 @@ public abstract class ObjectParameterizedAction extends Action {
 			return buf.toString();
 		}
 
+		
 		@Override
-		public boolean equals(Object other) {
-			if(this == other){
-				return true;
-			}
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + Arrays.hashCode(params);
+            return result;
+        }
 
-			if(!(other instanceof ObjectParameterizedGroundedAction)){
-				return false;
-			}
+		@Override
+        public boolean equals(Object other) {
+            if(this == other){
+                return true;
+            }
 
-			ObjectParameterizedGroundedAction go = (ObjectParameterizedGroundedAction)other;
+            if(!(other instanceof ObjectParameterizedGroundedAction)){
+                return false;
+            }
 
-			if(!this.action.getName().equals(go.action.getName())){
-				return false;
-			}
+            ObjectParameterizedGroundedAction go = (ObjectParameterizedGroundedAction)other;
 
-			String [] pog = ((ObjectParameterizedAction)this.action).getParameterOrderGroups();
+            if(!this.action.getName().equals(go.action.getName())){
+                return false;
+            }
 
-			for(int i = 0; i < this.params.length; i++){
-				String p = this.params[i];
-				String orderGroup = pog[i];
-				boolean foundMatch = false;
-				for(int j = 0; j < go.params.length; j++){
-					if(p.equals(go.params[j]) && orderGroup.equals(pog[j])){
-						foundMatch = true;
-						break;
-					}
-				}
-				if(!foundMatch){
-					return false;
-				}
-			}
+            String [] pog = ((ObjectParameterizedAction)this.action).getParameterOrderGroups();
 
-			return true;
-		}
+            for(int i = 0; i < this.params.length; i++){
+                String p = this.params[i];
+                String orderGroup = pog[i];
+                boolean foundMatch = false;
+                for(int j = 0; j < go.params.length; j++){
+                    if(p.equals(go.params[j]) && orderGroup.equals(pog[j])){
+                        foundMatch = true;
+                        break;
+                    }
+                }
+                if(!foundMatch){
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
 		@Override
 		public GroundedAction copy() {

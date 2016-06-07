@@ -35,6 +35,10 @@ public interface QFunction extends ValueFunction{
 	 * methods for computing the value function of a state, given the Q-values (the max Q-value or policy weighted value).
 	 */
 	public static class QFunctionHelper {
+	    
+	    private QFunctionHelper() {
+	        // do nothing
+	    }
 
 		/**
 		 * Returns the optimal state value function for a state given a {@link QFunction}.
@@ -45,7 +49,7 @@ public interface QFunction extends ValueFunction{
 		 */
 		public static double getOptimalValue(QFunction qSource, State s){
 			List <QValue> qs = qSource.getQs(s);
-			if(qs.size() == 0){
+			if(qs.isEmpty()){
 				return 0.;
 			}
 			double max = Double.NEGATIVE_INFINITY;
@@ -85,7 +89,7 @@ public interface QFunction extends ValueFunction{
 
 			double expectedValue = 0.;
 			List <Policy.ActionProb> aps = p.getActionDistributionForState(s);
-			if(aps.size() == 0){
+			if(aps.isEmpty()){
 				return 0.;
 			}
 			for(Policy.ActionProb ap : aps){

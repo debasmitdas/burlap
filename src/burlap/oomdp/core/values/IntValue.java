@@ -38,7 +38,7 @@ public class IntValue extends OOMDPValue implements Value {
 	 */
 	public IntValue(IntValue v) {
 		super(v);
-		this.intVal = ((IntValue)v).intVal;
+		this.intVal = v.intVal;
 	}
 	
 	public IntValue(Attribute attribute, int intVal) {
@@ -73,7 +73,7 @@ public class IntValue extends OOMDPValue implements Value {
 	
 	@Override
 	public Value setValue(boolean v) {
-		return new IntValue(this.attribute, (v) ? 1 : 0);
+		return new IntValue(this.attribute, v ? 1 : 0);
 	}
 
 	@Override
@@ -93,24 +93,33 @@ public class IntValue extends OOMDPValue implements Value {
 	
 	
 	@Override
-	public boolean equals(Object obj){
-		if (this == obj) {
-			return true;
-		}
-		
-		if(!(obj instanceof IntValue)){
-			return false;
-		}
-		
-		IntValue o = (IntValue)obj;
-		
-		if(!o.attribute.equals(attribute)){
-			return false;
-		}
-		
-		return this.intVal == o.intVal;
-		
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + intVal;
+        return result;
+    }
+
+
+	@Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+        
+        if(!(obj instanceof IntValue)){
+            return false;
+        }
+        
+        IntValue o = (IntValue)obj;
+        
+        if(!o.attribute.equals(attribute)){
+            return false;
+        }
+        
+        return this.intVal == o.intVal;
+        
+    }
 
 
 	@Override

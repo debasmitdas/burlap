@@ -142,8 +142,8 @@ public class MacroCellGridWorld extends GridWorldDomain {
 		State s = new MutableState();
 		int [][] map = gridWorldGenerator.getMap();
 		
-		int rx = 0;
-		int ry = 0;
+		int rx;
+		int ry;
 		
 		do{
 			rx = r.nextInt(map.length);
@@ -267,7 +267,7 @@ public class MacroCellGridWorld extends GridWorldDomain {
 		@Override
 		public boolean isTrue(State state, String... params) {
 			List<ObjectInstance> agents = state.getObjectsOfClass(MacroCellGridWorld.CLASSAGENT);
-			if (agents.size() == 0) {
+			if (agents.isEmpty()) {
 				return false;
 			}
 			ObjectInstance agent = agents.get(0);

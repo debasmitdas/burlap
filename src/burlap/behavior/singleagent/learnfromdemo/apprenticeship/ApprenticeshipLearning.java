@@ -54,6 +54,10 @@ public class ApprenticeshipLearning {
 	
 	public static final int								debugCodeScore = 746329;
 	public static final int								debugCodeRFWeights = 636392;
+	
+	private ApprenticeshipLearning() {
+	    // do nothing
+	}
 
 	/**
 	 * Calculates the Feature Expectations given one demonstration, a feature mapping and a discount factor gamma
@@ -176,7 +180,7 @@ public class ApprenticeshipLearning {
 		}
 
 		Planner planner = request.getPlanner();
-		TerminalFunction terminalFunction = planner.getTF();
+		TerminalFunction terminalFunction = planner.getTf();
 		HashableStateFactory stateHashingFactory = planner.getHashingFactory();
 
 		// (1). Randomly generate policy pi^(0)
@@ -277,7 +281,7 @@ public class ApprenticeshipLearning {
 
 		//Planning objects
 		Planner planner = request.getPlanner();
-		TerminalFunction terminalFunction = planner.getTF();
+		TerminalFunction terminalFunction = planner.getTf();
 		HashableStateFactory stateHashingFactory = planner.getHashingFactory();
 
 		//(0) set up policy array; exper feature expectation
@@ -303,7 +307,7 @@ public class ApprenticeshipLearning {
 				ApprenticeshipLearning.estimateFeatureExpectation(sampleEpisodes, featureFunctions, request.getGamma());
 		featureExpectationsHistory.add(curFE);
 		double[] lastProjFE = null;
-		double[] newProjFE = null;
+		double[] newProjFE;
 
 		int maxIterations = request.getMaxIterations();
 		double[] tHistory = new double[maxIterations];

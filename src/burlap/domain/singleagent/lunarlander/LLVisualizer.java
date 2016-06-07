@@ -22,6 +22,9 @@ import burlap.oomdp.visualizer.Visualizer;
  */
 public class LLVisualizer {
 
+    private LLVisualizer() {
+        // do nothing
+    }
 
 	/**
 	 * Returns a {@link burlap.oomdp.visualizer.Visualizer} for a {@link burlap.domain.singleagent.lunarlander.LunarLanderDomain} using
@@ -195,8 +198,8 @@ public class LLVisualizer {
 			double ow = or - ol;
 			double oh = ot - obb;
 			
-			double xr = (lld.getXmax() - lld.getXmin());
-			double yr = (lld.getYmax() - lld.getYmin());
+			double xr = lld.getXmax() - lld.getXmin();
+			double yr = lld.getYmax() - lld.getYmin();
 			
 			double nl = (ol - lld.getXmin()) / xr;
 			double nt = (ot - lld.getYmin()) / yr;
@@ -204,7 +207,7 @@ public class LLVisualizer {
 			double nw = ow/xr;
 			double nh = oh/yr;
 			
-			double sx = (nl*cWidth);
+			double sx = nl*cWidth;
 			double sy = cHeight - (nt*cHeight);
 			
 			double sw = nw*cWidth;
@@ -247,8 +250,8 @@ public class LLVisualizer {
 			double ow = or - ol;
 			double oh = ot - obb;
 			
-			double xr = (lld.getXmax() - lld.getXmin());
-			double yr = (lld.getYmax() - lld.getYmin());
+			double xr = lld.getXmax() - lld.getXmin();
+			double yr = lld.getYmax() - lld.getYmin();
 			
 			double nl = (ol - lld.getXmin()) / xr;
 			double nt = (ot - lld.getYmin()) / yr;
@@ -256,7 +259,7 @@ public class LLVisualizer {
 			double nw = ow/xr;
 			double nh = oh/yr;
 			
-			double sx = (nl*cWidth);
+			double sx = nl*cWidth;
 			double sy = cHeight - (nt*cHeight);
 			
 			double sw = nw*cWidth;

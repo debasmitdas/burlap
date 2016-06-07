@@ -25,7 +25,7 @@ import burlap.oomdp.singleagent.RewardFunction;
 /**
  * Iteratively deepening A* implementation.
  * 
- * <p/>
+ * <p>
  * If a terminal function is provided via the setter method defined for OO-MDPs, then the BestFirst search algorithm will not expand any nodes
  * that are terminal states, as if there were no actions that could be executed from that state. Note that terminal states
  * are not necessarily the same as goal states, since there could be a fail condition from which the agent cannot act, but
@@ -180,11 +180,9 @@ public class IDAStar extends DeterministicPlanner {
 		for(int i = successors.size()-1; i >= 0; i--){
 			PrioritizedSearchNode snode = successors.get(i);
 			PrioritizedSearchNode cand = this.FLimtedDFS(snode, minR, successorGs.get(i));
-			if(cand != null){
-				if(cand.priority > maxCandR){
-					bestCand = cand;
-					maxCandR = cand.priority;
-				}
+			if(cand != null && cand.priority > maxCandR){
+			    bestCand = cand;
+                maxCandR = cand.priority;
 			}
 			
 		}

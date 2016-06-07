@@ -6,6 +6,7 @@ import burlap.oomdp.core.states.State;
 import burlap.oomdp.stochasticgames.SGDomain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,11 +15,11 @@ import java.util.List;
  * instance associated with this action is {@link burlap.oomdp.stochasticgames.agentactions.ObParamSGAgentAction.GroundedObParamSGAgentAction},
  * which implements the {@link burlap.oomdp.core.AbstractObjectParameterizedGroundedAction}, since its parameters refer to
  * OO-MDP {@link burlap.oomdp.core.objects.ObjectInstance} references.
- * <br/><br/>
+ * <p>
  * The string array in the {@link #ObParamSGAgentAction(burlap.oomdp.stochasticgames.SGDomain, String, String[])} constructor
  * specifies the valid type of {@link burlap.oomdp.core.ObjectClass}
  * to which the parameters must belong.
- * <br/><br/>
+ * <p>
  * It may also be the case that the order of parameters for an {@link burlap.oomdp.singleagent.ObjectParameterizedAction} is unimportant.
  * In this case, you can specify parameter order groups to indicate for which parameters the order is unimportant. See the
  * {@link burlap.oomdp.singleagent.ObjectParameterizedAction} class documentation for more information of parameter order groups.
@@ -166,7 +167,7 @@ public abstract class ObParamSGAgentAction extends SGAgentAction {
 		 */
 		@Override
 		public String justActionString(){
-			StringBuffer buf = new StringBuffer();
+		    StringBuilder buf = new StringBuilder();
 			buf.append(action.actionName);
 			for(int i = 0; i < params.length; i++){
 				buf.append(" ").append(params[i]);
@@ -178,7 +179,7 @@ public abstract class ObParamSGAgentAction extends SGAgentAction {
 
 		@Override
 		public String toString(){
-			StringBuffer buf = new StringBuffer();
+		    StringBuilder buf = new StringBuilder();
 			buf.append(actingAgent).append(":");
 			buf.append(action.actionName);
 			for(int i = 0; i < params.length; i++){
@@ -190,46 +191,54 @@ public abstract class ObParamSGAgentAction extends SGAgentAction {
 
 
 		@Override
-		public boolean equals(Object other){
+        public int hashCode() {
+            final int prime = 31;
+            int result = super.hashCode();
+            result = prime * result + Arrays.hashCode(params);
+            return result;
+        }
 
-			if(this == other){
-				return true;
-			}
+		@Override
+        public boolean equals(Object other){
 
-			if(!(other instanceof GroundedObParamSGAgentAction)){
-				return false;
-			}
+            if(this == other){
+                return true;
+            }
 
-			GroundedObParamSGAgentAction go = (GroundedObParamSGAgentAction)other;
+            if(!(other instanceof GroundedObParamSGAgentAction)){
+                return false;
+            }
 
-			if(!this.actingAgent.equals(go.actingAgent)){
-				return false;
-			}
+            GroundedObParamSGAgentAction go = (GroundedObParamSGAgentAction)other;
 
-			if(!this.action.actionName.equals(go.action.actionName)){
-				return false;
-			}
+            if(!this.actingAgent.equals(go.actingAgent)){
+                return false;
+            }
 
-			String [] rclasses = ((ObParamSGAgentAction)this.action).parameterOrderGroups;
+            if(!this.action.actionName.equals(go.action.actionName)){
+                return false;
+            }
 
-			for(int i = 0; i < this.params.length; i++){
-				String p = this.params[i];
-				String replaceClass = rclasses[i];
-				boolean foundMatch = false;
-				for(int j = 0; j < go.params.length; j++){
-					if(p.equals(go.params[j]) && replaceClass.equals(rclasses[j])){
-						foundMatch = true;
-						break;
-					}
-				}
-				if(!foundMatch){
-					return false;
-				}
+            String [] rclasses = ((ObParamSGAgentAction)this.action).parameterOrderGroups;
 
-			}
+            for(int i = 0; i < this.params.length; i++){
+                String p = this.params[i];
+                String replaceClass = rclasses[i];
+                boolean foundMatch = false;
+                for(int j = 0; j < go.params.length; j++){
+                    if(p.equals(go.params[j]) && replaceClass.equals(rclasses[j])){
+                        foundMatch = true;
+                        break;
+                    }
+                }
+                if(!foundMatch){
+                    return false;
+                }
 
-			return true;
-		}
+            }
+
+            return true;
+        }
 	}
 
 }

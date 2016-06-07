@@ -23,7 +23,7 @@ import burlap.oomdp.singleagent.RewardFunction;
 /**
  * An implementation of TDLambda that can be used as a critic for {@link burlap.behavior.singleagent.learning.actorcritic.ActorCritic} algorithms [1].
  * 
- * <p/>
+ * <p>
  * 1. Barto, Andrew G., Steven J. Bradtke, and Satinder P. Singh. "Learning to act using real-time dynamic programming." Artificial Intelligence 72.1 (1995): 81-138.
  * @author James MacGlashan
  *
@@ -136,10 +136,8 @@ public class TDLambda implements Critic, ValueFunction {
 	
 	@Override
 	public void addNonDomainReferencedAction(Action a) {
-		if(a instanceof Option){
-			if(!(this.rf instanceof OptionEvaluatingRF)){
-				this.rf = new OptionEvaluatingRF(this.rf);
-			}
+		if(a instanceof Option && !(this.rf instanceof OptionEvaluatingRF)){
+		    this.rf = new OptionEvaluatingRF(this.rf);
 		}
 
 	}

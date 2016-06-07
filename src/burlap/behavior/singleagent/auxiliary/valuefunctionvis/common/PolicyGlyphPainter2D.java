@@ -27,8 +27,8 @@ public class PolicyGlyphPainter2D implements StatePolicyPainter {
 
 	
 	/**
-	 * MAXACTION paints only glphys for only those actions that have the highest likelihood <br/>
-	 * MAXACTIONSOFTTIE paints the glyphs for all actions whose likelihood is within some threshold of the most likely action <br/>
+	 * MAXACTION paints only glphys for only those actions that have the highest likelihood <p>
+	 * MAXACTIONSOFTTIE paints the glyphs for all actions whose likelihood is within some threshold of the most likely action <p>
 	 * DISTSCALED paints glyphs for all actions and scales them by the likelihood of the action
 	 * @author James MacGlashan
 	 *
@@ -230,12 +230,12 @@ public class PolicyGlyphPainter2D implements StatePolicyPainter {
 		Attribute xAtt = xOb.getObjectClass().getAttribute(xAttName);
 		Attribute yAtt = yOb.getObjectClass().getAttribute(yAttName);
 		
-		float domainXScale = 0f;
-		float domainYScale = 0f;
-		float xval = 0f;
-		float yval = 0f;
-		float width = 0f;
-		float height = 0f;
+		float domainXScale;
+		float domainYScale;
+		float xval;
+		float yval;
+		float width;
+		float height;
 		
 		if(this.numXCells != -1){
 			domainXScale = this.numXCells;

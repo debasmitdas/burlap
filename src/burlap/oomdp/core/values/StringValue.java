@@ -32,7 +32,7 @@ public class StringValue extends OOMDPValue implements Value {
 	 */
 	public StringValue(StringValue v) {
 		super(v);
-		this.stringVal = ((StringValue)v).stringVal;
+		this.stringVal = v.stringVal;
 	}
 	
 	public StringValue(Attribute attribute, String stringVal) {
@@ -70,22 +70,33 @@ public class StringValue extends OOMDPValue implements Value {
 		return builder.append(this.stringVal);
 	}
 	
+	
 	@Override
-	public boolean equals(Object obj){
-		if (this == obj) {
-			return true;
-		}
-		if(!(obj instanceof StringValue)){
-			return false;
-		}
-		
-		StringValue o = (StringValue)obj;
-		
-		if(!o.attribute.equals(attribute)){
-			return false;
-		}
-		
-		return this.stringVal.equals(o.stringVal);
-		
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((stringVal == null) ? 0 : stringVal.hashCode());
+        return result;
+    }
+
+
+	@Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+        if(!(obj instanceof StringValue)){
+            return false;
+        }
+        
+        StringValue o = (StringValue)obj;
+        
+        if(!o.attribute.equals(attribute)){
+            return false;
+        }
+        
+        return this.stringVal.equals(o.stringVal);
+        
+    }
 }

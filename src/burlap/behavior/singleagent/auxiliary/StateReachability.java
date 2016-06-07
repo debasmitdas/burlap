@@ -28,7 +28,11 @@ public class StateReachability {
 	/**
 	 * The debugID used for making calls to {@link burlap.debugtools.DPrint}.
 	 */
-	public static int			debugID = 837493;
+	public static final int			debugID = 837493;
+	
+	private StateReachability() {
+	    // do nothing
+	}
 	
 	
 	/**
@@ -95,7 +99,7 @@ public class StateReachability {
 		hashedStates.add(shi);
 		long firstTime = System.currentTimeMillis();
 		long lastTime = firstTime;
-		while(openList.size() > 0){
+		while(!openList.isEmpty()){
 			HashableState sh = openList.poll();
 			if(tf.isTerminal(sh.s)){
 				continue; //don't expand
@@ -200,7 +204,7 @@ public class StateReachability {
 		hashedStates.add(shi);
 
 		MyTimer timer = new MyTimer(true);
-		while(openList.size() > 0){
+		while(!openList.isEmpty()){
 			HashableState sh = openList.poll();
 			if(tf.isTerminal(sh.s)){
 				continue; //don't expand
